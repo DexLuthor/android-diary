@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/ic_add_white_24dp"
+        android:title="@string/add"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <item
+                android:id="@+id/addSubject"
+                android:title="@string/add_subject"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/addLesson"
+                android:title="@string/add_lesson"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/addHomework"
+                android:title="@string/add_homework"
+                app:showAsAction="ifRoom" />
+        </menu>
+
+    </item>
+
+
+</menu>
