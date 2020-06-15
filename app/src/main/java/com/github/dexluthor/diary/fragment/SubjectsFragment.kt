@@ -1,5 +1,6 @@
 package com.github.dexluthor.diary.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.dexluthor.diary.R
 import com.github.dexluthor.diary.activities.mainActivity.SubjectAdapter
 import com.github.dexluthor.diary.viewModel.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
-class SubjectsFragment : Fragment() {
+class SubjectsFragment(ct: Context) : Fragment() {
 
-    private val subjectAdapter = SubjectAdapter()
+    private val subjectAdapter = SubjectAdapter(ct)
     private val subjectViewModel = ViewModelFactory.getSubjectViewModel()
 
     override fun onCreateView(
@@ -39,10 +41,15 @@ class SubjectsFragment : Fragment() {
             ) = false
 
             override fun onSwiped(holder: RecyclerView.ViewHolder, direction: Int) {
-                subjectViewModel.removeSubject(holder.adapterPosition)
+                val removedSubject = subjectViewModel.removeSubjectAt(holder.adapterPosition)
+                Snackbar
+                    .make(view, "Homework was successfully removed", Snackbar.LENGTH_LONG)
+                    .setAction("UNDO") {
+                        subjectViewModel.addSubject(removedSubject)
+                    }.show()
             }
         }
-        ItemTouchHelper(swipeCallback).attachToRecyclerView(subjectRecyclerView);
+        ItemTouchHelper(swipeCallback).attachToRecyclerView(subjectRecyclerView)
     }
 
     private fun initObservers() {
@@ -53,6 +60,6 @@ class SubjectsFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(fm: Any?) = SubjectsFragment()
+        fun newInstance(ct: Context) = SubjectsFragment(ct)
     }
 }

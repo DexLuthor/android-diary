@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_subject">Добавить предмет</string>
+    <string name="add_lesson">Добавить урок</string>
+    <string name="add">Добавить</string>
+    <string name="name">Название*</string>
+    <string name="teacher_s_email">Email учителя</string>
+    <string name="subject_s_website">Сайт предмета</string>
+    <string name="save">Сохранить</string>
+    <string name="remove">Удалить</string>
+    <string name="homework">Домашнее задания</string>
+    <string name="subjects">Предметы</string>
+    <string name="add_homework">Добавить дз</string>
+    <string name="deadline">Дедлайн*</string>
+    <string name="task">Задание*</string>
+    <string name="deadline_time">Время дедлайна*</string>
+    <string name="choose">Выбор</string>
+    <string name="deadline_date">Дата дедлайна*</string>
+    <string name="language">Язык</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_subject">Pridať predmet</string>
+    <string name="add_lesson">Pridať hodinu</string>
+    <string name="add">Pridať</string>
+    <string name="name">Názov</string>
+    <string name="teacher_s_email">Email učiteľa</string>
+    <string name="subject_s_website">Stránka predmetu</string>
+    <string name="save">Uložiť</string>
+    <string name="remove">Vymazať</string>
+    <string name="homework">Domáce úlohy</string>
+    <string name="subjects">Predmety</string>
+    <string name="add_homework">Pridať domácu úlohu</string>
+    <string name="deadline">Deadline</string>
+    <string name="task">Úloha</string>
+    <string name="deadline_time">Čas deadlinu</string>
+    <string name="choose">Výber</string>
+    <string name="deadline_date">Dátum deadlinu</string>
+    <string name="language">Jazyk</string>
+</resources>

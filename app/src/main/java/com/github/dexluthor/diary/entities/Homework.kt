@@ -1,17 +1,22 @@
 package com.github.dexluthor.diary.entities
 
+import java.io.Serializable
 import java.time.LocalDateTime
 
 class Homework(
-    val deadline: LocalDateTime,
-    val description: String,
-    val subjectName: String
-) : Comparable<Homework> {
+    var deadline: LocalDateTime,
+    var description: String,
+    var subject: Subject
+) : Comparable<Homework>, Serializable {
     var status: Boolean = false
 
     override fun toString(): String {
-        return "Homework(deadline=$deadline, subjectName='$subjectName')"
+        return "Homework(deadline=$deadline, subjectName='$subject')"
     }
+
+
+    override fun compareTo(other: Homework) =
+        if (deadline > other.deadline) 1 else if (deadline < other.deadline) -1 else 0
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -19,10 +24,9 @@ class Homework(
 
         other as Homework
 
+        if (subject != other.subject) return false
         if (deadline != other.deadline) return false
         if (description != other.description) return false
-        if (status != other.status) return false
-        if (subjectName != other.subjectName) return false
 
         return true
     }
@@ -30,12 +34,8 @@ class Homework(
     override fun hashCode(): Int {
         var result = deadline.hashCode()
         result = 31 * result + description.hashCode()
-        result = 31 * result + status.hashCode()
-        result = 31 * result + subjectName.hashCode()
+        result = 31 * result + subject.hashCode()
         return result
     }
-
-    override fun compareTo(other: Homework) =
-        if (deadline > other.deadline) 1 else if (deadline < other.deadline) -1 else 0
 
 }

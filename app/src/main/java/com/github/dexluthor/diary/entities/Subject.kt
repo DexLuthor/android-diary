@@ -1,13 +1,15 @@
 package com.github.dexluthor.diary.entities
 
+import java.io.Serializable
+
 class Subject(
-    val name: String,
-    val site: String,
-    val email: String
-) {
+    var name: String,
+    var site: String,
+    var email: String
+) : Serializable {
 
     override fun toString(): String {
-        return "Subject(name='$name', site='$site', email='$email')"
+        return "Subject(name='$name')"
     }
 
     override fun equals(other: Any?): Boolean {

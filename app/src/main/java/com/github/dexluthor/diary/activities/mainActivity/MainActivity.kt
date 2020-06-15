@@ -1,40 +1,55 @@
 package com.github.dexluthor.diary.activities.mainActivity
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.dexluthor.diary.R
-import com.github.dexluthor.diary.activities.AddHomeworkActivity
-import com.github.dexluthor.diary.activities.AddLessonActivity
-import com.github.dexluthor.diary.activities.AddSubjectActivity
 import com.github.dexluthor.diary.customWidgets.LessonTextView
 import com.github.dexluthor.diary.entities.Lesson
+import com.github.dexluthor.diary.fragment.ChooseWhatToCreateDialogFragment
 import com.github.dexluthor.diary.viewModel.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
-import java.time.DayOfWeek
+import java.time.DayOfWeek.*
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
+    private val lessonsAdapter = LessonsAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        lessonsRecycler.layoutManager = LinearLayoutManager(this)
+        lessonsRecycler.adapter = lessonsAdapter
+
         initObservers()
         initPageAdapter()
     }
 
     private fun initObservers() {
+        val linearLayoutViewModel = ViewModelFactory.getLinearLayoutViewModel(this)
+        linearLayoutViewModel.getLinearLayouts().observe(this, Observer { layouts ->
+            lessonsAdapter.submitList(layouts)
+        })
+
         val lessonViewModel = ViewModelFactory.getLessonsViewModel()
         lessonViewModel.getLessons().observe(this, Observer { lessons ->
+            clearFromExistingData()
             createLessonTextViews(lessons)
         })
     }
 
     private fun initPageAdapter() {
-        viewPager.adapter = PagerAdapter(supportFragmentManager)
+        viewPager.adapter = PagerAdapter(supportFragmentManager, this)
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabBar))
         tabBar.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -47,18 +62,26 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun clearFromExistingData() {
+        val linearLayoutViewModel = ViewModelFactory.getLinearLayoutViewModel(this)
+        for (ll in linearLayoutViewModel.getLinearLayouts().value!!.iterator()) {
+            ll.removeAllViews()
+        }
+    }
+
     private fun createLessonTextViews(lessons: List<Lesson>) {
         for (lesson in lessons) {
-            val layout = when (lesson.dayOfWeek) {
-                DayOfWeek.MONDAY -> monday
-                DayOfWeek.TUESDAY -> tuesday
-                DayOfWeek.WEDNESDAY -> wednesday
-                DayOfWeek.THURSDAY -> thursday
-                DayOfWeek.FRIDAY -> friday
-                DayOfWeek.SATURDAY -> saturday
+            val day = when (lesson.dayOfWeek) {
+                MONDAY -> 0
+                TUESDAY -> 1
+                WEDNESDAY -> 2
+                THURSDAY -> 3
+                FRIDAY -> 4
+                SATURDAY -> 5
                 else -> null//TODO()
             }
-            layout!!.addView(LessonTextView(this, lesson))
+            val layout = lessonsRecycler.layoutManager!!.getChildAt(day!!) as LinearLayout
+            layout.addView(LessonTextView(this, lesson))
         }
     }
 
@@ -69,15 +92,38 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.addSubject -> startActivity(Intent(this, AddSubjectActivity::class.java))
-            R.id.addLesson -> startActivity(Intent(this, AddLessonActivity::class.java))
-            R.id.addHomework -> startActivity(Intent(this, AddHomeworkActivity::class.java))
+            R.id.En -> {
+                setLocale("en")
+                recreate()
+            }
+            R.id.Sk -> {
+                setLocale("sk")
+                recreate()
+            }
+            R.id.Ru -> {
+                setLocale("ru")
+                recreate()
+            }
         }
         return true
     }
 
+    private fun setLocale(lang: String) {
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val cnf = Configuration()
+        //https://stackoverflow.com/questions/12908289/how-to-change-language-of-app-when-user-selects-language
+        cnf.setLocale(locale)
+        baseContext.resources.updateConfiguration(cnf, baseContext.resources.displayMetrics)
+
+        val refresh = Intent(this, MainActivity::class.java)
+        finish()
+        startActivity(refresh)
+    }
+
     fun onFloatingActionButtonClick(view: View) {
-        // TODO
+        val chooseWhatToCreateDialogFragment = ChooseWhatToCreateDialogFragment()
+        chooseWhatToCreateDialogFragment.show(supportFragmentManager, "Tag")
     }
 
 }

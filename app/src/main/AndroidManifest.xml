@@ -1,9 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.dexluthor.diary">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-   <!-- <uses-feature android:name="android.hardware.type.watch" />-->
 
     <application
         android:allowBackup="true"
@@ -19,9 +18,10 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
+        <activity android:name=".activities.HomeworkInfoActivity" />
         <activity android:name=".activities.AddHomeworkActivity" />
         <activity android:name=".activities.AddLessonActivity" />
-        <activity android:name=".activities.AddSubjectActivity" />
+        <activity android:name=".activities.EditSubjectActivity" />
         <activity android:name=".activities.LessonInfoActivity" />
         <activity android:name=".activities.mainActivity.MainActivity">
             <intent-filter>

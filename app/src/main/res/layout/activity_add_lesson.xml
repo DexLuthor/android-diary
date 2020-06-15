@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/basic"
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
     tools:context=".activities.AddLessonActivity">
@@ -30,7 +29,7 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <EditText
+            <TextView
                 android:id="@+id/time"
                 android:layout_width="278dp"
                 android:layout_height="50dp"
@@ -40,8 +39,8 @@
                 android:id="@+id/choose_time_btn"
                 android:layout_width="83dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_baseline_watch_later_24"
-                android:onClick="onChooseTimeButtonClick"/>
+                android:onClick="onChooseTimeButtonClick"
+                android:src="@drawable/ic_baseline_watch_later_24" />
         </LinearLayout>
 
         <EditText
@@ -49,34 +48,15 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:hint="Duration*" />
+            android:hint="@string/duration"
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:hint="Location" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/date"
-                android:layout_width="278dp"
-                android:layout_height="50dp"
-                android:hint="Until date*" />
-
-            <ImageButton
-                android:id="@+id/choose_date_btn"
-                android:layout_width="81dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_baseline_calendar_today_24"
-                android:onClick="onChooseDateButtonClick"/>
-        </LinearLayout>
+            android:hint="@string/location" />
 
         <Spinner
             android:id="@+id/type"
@@ -99,7 +79,8 @@
                 android:onClick="removeLesson"
                 android:text="@string/remove"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/saveLessonButton"
@@ -111,7 +92,8 @@
                 android:onClick="saveLesson"
                 android:text="@string/save"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                tools:ignore="ButtonStyle" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

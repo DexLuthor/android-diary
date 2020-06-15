@@ -3,55 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="50dp"
-    tools:context=".activities.LessonInfoActivity">
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:paddingBottom="25dp"
+    tools:context=".activities.AddHomeworkActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="100dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/subject_name"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onSendMailButtonClick"
-            android:src="@drawable/ic_mail_black_24dp" />
+            android:hint="@string/subject_name"
+            android:minHeight="50dp" />
 
         <TextView
-            android:id="@+id/teachers_mail"
+            android:id="@+id/description"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onOpenInBrowserButtonClick"
-            android:src="@drawable/ic_browser_black_24dp" />
+            android:hint="@string/task"
+            android:minHeight="50dp" />
 
         <TextView
-            android:id="@+id/subject_website"
+            android:id="@+id/dateTextView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp" />
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:hint="@string/deadline_date" />
 
         <TextView
-            android:id="@+id/day_time"
+            android:id="@+id/timeTextView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp" />
+            android:hint="@string/deadline_time" />
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

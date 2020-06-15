@@ -2,27 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/add"
+        android:id="@+id/language"
         android:icon="@drawable/ic_add_white_24dp"
         android:title="@string/add"
         app:showAsAction="ifRoom">
-
         <menu>
             <item
-                android:id="@+id/addSubject"
-                android:title="@string/add_subject"
-                app:showAsAction="ifRoom" />
+                android:id="@+id/En"
+                android:title="En" />
             <item
-                android:id="@+id/addLesson"
-                android:title="@string/add_lesson"
-                app:showAsAction="ifRoom" />
+                android:id="@+id/Sk"
+                android:title="Sk" />
             <item
-                android:id="@+id/addHomework"
-                android:title="@string/add_homework"
-                app:showAsAction="ifRoom" />
+                android:id="@+id/Ru"
+                android:title="Ru" />
         </menu>
-
     </item>
-
-
 </menu>
