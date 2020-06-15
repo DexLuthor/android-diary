@@ -11,6 +11,7 @@ class LessonsViewModel : ViewModel() {
     fun addLesson(lesson: Lesson) {
         val arrayList = ArrayList(lessons.value!!)
         arrayList.add(lesson)
+    //TODO postValue
         lessons.value = arrayList
     }
     fun removeLesson(lesson: Lesson){

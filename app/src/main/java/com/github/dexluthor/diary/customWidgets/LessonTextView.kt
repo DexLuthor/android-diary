@@ -13,7 +13,7 @@ class LessonTextView(context: Context, lesson: Lesson) :
         text = lesson.subject.name
         setBackgroundColor(Color.rgb(66, 3, 111))
         setTextColor(Color.WHITE)
-        height = 50// TODO 50dp
+        height = 80// TODO 50dp
         textSize = 20f
     }
 

@@ -7,11 +7,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.dexluthor.diary.R
-import com.github.dexluthor.diary.customWidgets.LessonTextView
 import com.github.dexluthor.diary.entities.Lesson
 import com.github.dexluthor.diary.fragment.ChooseWhatToCreateDialogFragment
 import com.github.dexluthor.diary.viewModel.ViewModelFactory
@@ -28,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        lessonsRecycler.layoutManager = LinearLayoutManager(this)
-        lessonsRecycler.adapter = lessonsAdapter
+        // lessonsRecycler.layoutManager = LinearLayoutManager(this)
+        // lessonsRecycler.adapter = lessonsAdapter
 
         initObservers()
         initPageAdapter()
@@ -64,8 +63,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun clearFromExistingData() {
         val linearLayoutViewModel = ViewModelFactory.getLinearLayoutViewModel(this)
-        for (ll in linearLayoutViewModel.getLinearLayouts().value!!.iterator()) {
-            ll.removeAllViews()
+
+        val iterator = linearLayoutViewModel.getLinearLayouts().value!!.iterator()
+        while (iterator.hasNext()) {
+            iterator.next().removeAllViews()
         }
     }
 
@@ -81,7 +82,10 @@ class MainActivity : AppCompatActivity() {
                 else -> null//TODO()
             }
             val layout = lessonsRecycler.layoutManager!!.getChildAt(day!!) as LinearLayout
-            layout.addView(LessonTextView(this, lesson))
+//            layout.addView(LessonTextView(layout.context, lesson))
+            val textView = TextView(layout.context)
+            textView.text = "Pool"
+            layout.addView(textView)
         }
     }
 

@@ -13,12 +13,49 @@
     tools:context=".activities.mainActivity.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mondayLessonsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tuesdayLessonsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/mondayLessonsRecycler"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wednesdayLessonsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tuesdayLessonsRecycler"
+
+        tools:layout_editor_absoluteX="10dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/thursdayLessonsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/wednesdayLessonsRecycler"
+
+        tools:layout_editor_absoluteX="10dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fridayLessonsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/thursdayLessonsRecycler"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <!--<androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lessonsRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="10dp" />
-    <!--
+
         <LinearLayout
             android:id="@+id/monday"
             android:layout_width="match_parent"

@@ -9,10 +9,9 @@ class HomeworkViewModel : ViewModel() {
     private val homeworkData = MutableLiveData<List<Homework>>(ArrayList())
 
     fun addHomework(homework: Homework): Boolean {
+        if (homeworkData.value!!.contains(homework)) return false
+
         val arrayList = ArrayList(homeworkData.value!!)
-
-        if (arrayList.contains(homework)) return false
-
         arrayList.add(homework)
         homeworkData.postValue(arrayList)
         return true
