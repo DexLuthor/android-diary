@@ -1,10 +1,6 @@
 package com.github.dexluthor.diary.activities.mainActivity
 
-import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -18,7 +14,6 @@ import com.github.dexluthor.diary.viewModel.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val mondayAdapter = MondayAdapter()
@@ -118,42 +113,6 @@ class MainActivity : AppCompatActivity() {
         lessonViewModel.getFridayLessons().observe(this, Observer { lessons ->
             fridayAdapter.submitList(lessons)
         })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.upper_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.En -> {
-                setLocale("en")
-                recreate()
-            }
-            R.id.Sk -> {
-                setLocale("sk")
-                recreate()
-            }
-            R.id.Ru -> {
-                setLocale("ru")
-                recreate()
-            }
-        }
-        return true
-    }
-
-    private fun setLocale(lang: String) {
-        //https://stackoverflow.com/questions/12908289/how-to-change-language-of-app-when-user-selects-language
-        val locale = Locale(lang)
-        Locale.setDefault(locale)
-        val cnf = Configuration()
-        cnf.setLocale(locale)
-        baseContext.resources.updateConfiguration(cnf, baseContext.resources.displayMetrics)
-
-        val refresh = Intent(this, MainActivity::class.java)
-        finish()
-        startActivity(refresh)
     }
 
     fun onFloatingActionButtonClick(view: View) {
