@@ -43,8 +43,12 @@ class SubjectsFragment(ct: Context) : Fragment() {
             override fun onSwiped(holder: RecyclerView.ViewHolder, direction: Int) {
                 val removedSubject = subjectViewModel.removeSubjectAt(holder.adapterPosition)
                 Snackbar
-                    .make(view, "Homework was successfully removed", Snackbar.LENGTH_LONG)
-                    .setAction("UNDO") {
+                    .make(
+                        view,
+                        resources.getString(R.string.subject_was_removed),
+                        Snackbar.LENGTH_LONG
+                    )
+                    .setAction(resources.getString(R.string.undo)) {
                         subjectViewModel.addSubject(removedSubject)
                     }.show()
             }

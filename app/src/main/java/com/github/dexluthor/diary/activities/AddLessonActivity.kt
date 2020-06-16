@@ -59,23 +59,14 @@ class AddLessonActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListene
             finish()
             return
         }
-        Toast.makeText(this, "Fill all necessary fields first", Toast.LENGTH_SHORT).show()
-    }
-
-    fun removeLesson(view: View) {
-        val lesson = extractLessonFromFields()
-        if (lesson != null) {
-            viewModel.removeLesson(lesson)
-            finish()
-            return
-        }
-        Toast.makeText(this, "Fill all necessary fields first", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, resources.getString(R.string.fill_all_fields), Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun extractLessonFromFields(): Lesson? {
         if (!isValidState()) return null
 
-        val type = if (type.selectedItem == "LECTURE") LessonType.LECTURE
+        val type = if (type.selectedItem == "LECTURE") LessonType.LECTURE//TODO eng??
         else LessonType.PRACTICE
 
         return Lesson(

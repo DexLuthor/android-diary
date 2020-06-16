@@ -14,7 +14,6 @@ class Homework(
         return "Homework(deadline=$deadline, subjectName='$subject')"
     }
 
-
     override fun compareTo(other: Homework) =
         if (deadline > other.deadline) 1 else if (deadline < other.deadline) -1 else 0
 

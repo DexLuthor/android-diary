@@ -15,39 +15,47 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mondayLessonsRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp" />
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/basic"
+        android:minHeight="50dp"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tuesdayLessonsRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mondayLessonsRecycler"
-        tools:layout_editor_absoluteX="10dp" />
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/basic"
+        android:minHeight="50dp"
+        app:layout_constraintTop_toBottomOf="@id/mondayLessonsRecycler" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wednesdayLessonsRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tuesdayLessonsRecycler"
-
-        tools:layout_editor_absoluteX="10dp" />
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/basic"
+        android:minHeight="50dp"
+        app:layout_constraintTop_toBottomOf="@id/tuesdayLessonsRecycler" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/thursdayLessonsRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/wednesdayLessonsRecycler"
-
-        tools:layout_editor_absoluteX="10dp" />
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/basic"
+        android:minHeight="50dp"
+        app:layout_constraintTop_toBottomOf="@id/wednesdayLessonsRecycler" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fridayLessonsRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/thursdayLessonsRecycler"
-        tools:layout_editor_absoluteX="10dp" />
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/basic"
+        android:minHeight="50dp"
+        app:layout_constraintTop_toBottomOf="@id/thursdayLessonsRecycler" />
 
     <!--<androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lessonsRecycler"
@@ -119,7 +127,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/lessonsRecycler"
+        app:layout_constraintTop_toBottomOf="@+id/fridayLessonsRecycler"
         tools:layout_editor_absoluteX="10dp">
 
         <com.google.android.material.tabs.TabItem
@@ -148,7 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:onClick="onFloatingActionButtonClick"
-        app:backgroundTint="#FFC107"
+        app:backgroundTint="#FF5722"
         app:srcCompat="@drawable/ic_add_white_24dp" />
 
 </LinearLayout>

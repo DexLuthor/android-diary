@@ -43,8 +43,12 @@ class HomeworkFragment(ct: Context) : Fragment() {
             override fun onSwiped(holder: RecyclerView.ViewHolder, direction: Int) {
                 val removedHomework = homeworkViewModel.removeHomeworkAt(holder.adapterPosition)
                 Snackbar
-                    .make(view, "Homework was successfully removed", Snackbar.LENGTH_LONG)
-                    .setAction("UNDO") {
+                    .make(
+                        view,
+                        resources.getString(R.string.homework_was_removed),
+                        Snackbar.LENGTH_LONG
+                    )
+                    .setAction(resources.getString(R.string.undo)) {
                         homeworkViewModel.addHomework(removedHomework)
                     }.show()
             }

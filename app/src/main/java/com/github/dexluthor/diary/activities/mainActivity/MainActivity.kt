@@ -6,48 +6,40 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.dexluthor.diary.R
-import com.github.dexluthor.diary.entities.Lesson
+import com.github.dexluthor.diary.activities.mainActivity.lessonsRecyclerView.*
 import com.github.dexluthor.diary.fragment.ChooseWhatToCreateDialogFragment
 import com.github.dexluthor.diary.viewModel.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
-import java.time.DayOfWeek.*
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    private val lessonsAdapter = LessonsAdapter()
+    private val mondayAdapter = MondayAdapter()
+    private val tuesdayAdapter = TuesdayAdapter()
+    private val wednesdayAdapter = WednesdayAdapter()
+    private val thursdayAdapter = ThursdayAdapter()
+    private val fridayAdapter = FridayAdapter()
+    private val lessonsViewModel = ViewModelFactory.getLessonsViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initPagerAdapter()
 
-        // lessonsRecycler.layoutManager = LinearLayoutManager(this)
-        // lessonsRecycler.adapter = lessonsAdapter
+        initLessonRecyclers()
 
         initObservers()
-        initPageAdapter()
     }
 
-    private fun initObservers() {
-        val linearLayoutViewModel = ViewModelFactory.getLinearLayoutViewModel(this)
-        linearLayoutViewModel.getLinearLayouts().observe(this, Observer { layouts ->
-            lessonsAdapter.submitList(layouts)
-        })
-
-        val lessonViewModel = ViewModelFactory.getLessonsViewModel()
-        lessonViewModel.getLessons().observe(this, Observer { lessons ->
-            clearFromExistingData()
-            createLessonTextViews(lessons)
-        })
-    }
-
-    private fun initPageAdapter() {
+    private fun initPagerAdapter() {
         viewPager.adapter = PagerAdapter(supportFragmentManager, this)
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabBar))
         tabBar.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -56,37 +48,78 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
-
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
     }
 
-    private fun clearFromExistingData() {
-        val linearLayoutViewModel = ViewModelFactory.getLinearLayoutViewModel(this)
+    private fun initLessonRecyclers() {
+        mondayLessonsRecycler.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        mondayLessonsRecycler.adapter = mondayAdapter
 
-        val iterator = linearLayoutViewModel.getLinearLayouts().value!!.iterator()
-        while (iterator.hasNext()) {
-            iterator.next().removeAllViews()
-        }
+        tuesdayLessonsRecycler.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        tuesdayLessonsRecycler.adapter = tuesdayAdapter
+
+        wednesdayLessonsRecycler.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        wednesdayLessonsRecycler.adapter = wednesdayAdapter
+
+        thursdayLessonsRecycler.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        thursdayLessonsRecycler.adapter = thursdayAdapter
+
+        fridayLessonsRecycler.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        fridayLessonsRecycler.adapter = fridayAdapter
+
+        setSwipeCallback(mondayLessonsRecycler)
+        setSwipeCallback(tuesdayLessonsRecycler)
+        setSwipeCallback(wednesdayLessonsRecycler)
+        setSwipeCallback(thursdayLessonsRecycler)
+        setSwipeCallback(fridayLessonsRecycler)
     }
 
-    private fun createLessonTextViews(lessons: List<Lesson>) {
-        for (lesson in lessons) {
-            val day = when (lesson.dayOfWeek) {
-                MONDAY -> 0
-                TUESDAY -> 1
-                WEDNESDAY -> 2
-                THURSDAY -> 3
-                FRIDAY -> 4
-                SATURDAY -> 5
-                else -> null//TODO()
+    private fun setSwipeCallback(recyclerView: RecyclerView) {
+        val swipeCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.DOWN) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ) = false
+
+            override fun onSwiped(holder: RecyclerView.ViewHolder, direction: Int) {
+                val removedLesson =
+                    lessonsViewModel.removeLessonAt(holder.adapterPosition, recyclerView)
+                Snackbar.make(
+                    recyclerView,
+                    "Lesson was successfully removed",
+                    Snackbar.LENGTH_LONG
+                ).setAction("UNDO") {
+                    lessonsViewModel.addLesson(removedLesson)
+                }.show()
             }
-            val layout = lessonsRecycler.layoutManager!!.getChildAt(day!!) as LinearLayout
-//            layout.addView(LessonTextView(layout.context, lesson))
-            val textView = TextView(layout.context)
-            textView.text = "Pool"
-            layout.addView(textView)
         }
+        ItemTouchHelper(swipeCallback).attachToRecyclerView(recyclerView)
+    }
+
+    private fun initObservers() {
+        val lessonViewModel = lessonsViewModel
+        lessonViewModel.getMondayLessons().observe(this, Observer { lessons ->
+            mondayAdapter.submitList(lessons)
+        })
+        lessonViewModel.getTuesdayLessons().observe(this, Observer { lessons ->
+            tuesdayAdapter.submitList(lessons)
+        })
+        lessonViewModel.getWednesdayLessons().observe(this, Observer { lessons ->
+            wednesdayAdapter.submitList(lessons)
+        })
+        lessonViewModel.getThursdayLessons().observe(this, Observer { lessons ->
+            thursdayAdapter.submitList(lessons)
+        })
+        lessonViewModel.getFridayLessons().observe(this, Observer { lessons ->
+            fridayAdapter.submitList(lessons)
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -113,10 +146,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setLocale(lang: String) {
+        //https://stackoverflow.com/questions/12908289/how-to-change-language-of-app-when-user-selects-language
         val locale = Locale(lang)
         Locale.setDefault(locale)
         val cnf = Configuration()
-        //https://stackoverflow.com/questions/12908289/how-to-change-language-of-app-when-user-selects-language
         cnf.setLocale(locale)
         baseContext.resources.updateConfiguration(cnf, baseContext.resources.displayMetrics)
 
@@ -126,8 +159,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onFloatingActionButtonClick(view: View) {
-        val chooseWhatToCreateDialogFragment = ChooseWhatToCreateDialogFragment()
-        chooseWhatToCreateDialogFragment.show(supportFragmentManager, "Tag")
+        ChooseWhatToCreateDialogFragment.newInstance().show(supportFragmentManager, "Tag")
     }
 
 }

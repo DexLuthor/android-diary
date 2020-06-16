@@ -9,13 +9,13 @@
         <menu>
             <item
                 android:id="@+id/En"
-                android:title="En" />
+                android:title="@string/english" />
             <item
                 android:id="@+id/Sk"
-                android:title="Sk" />
+                android:title="@string/slovak" />
             <item
                 android:id="@+id/Ru"
-                android:title="Ru" />
+                android:title="@string/russian" />
         </menu>
     </item>
 </menu>

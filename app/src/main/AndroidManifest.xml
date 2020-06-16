@@ -3,6 +3,7 @@
     package="com.github.dexluthor.diary">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,12 +19,22 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <activity android:name=".activities.HomeworkInfoActivity" />
-        <activity android:name=".activities.AddHomeworkActivity" />
-        <activity android:name=".activities.AddLessonActivity" />
+        <activity
+            android:name=".activities.HomeworkInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AddHomeworkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AddLessonActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activities.EditSubjectActivity" />
-        <activity android:name=".activities.LessonInfoActivity" />
-        <activity android:name=".activities.mainActivity.MainActivity">
+        <activity
+            android:name=".activities.LessonInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.mainActivity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

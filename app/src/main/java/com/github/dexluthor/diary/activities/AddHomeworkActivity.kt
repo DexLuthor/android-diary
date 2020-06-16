@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.dexluthor.diary.R
 import com.github.dexluthor.diary.entities.Homework
 import com.github.dexluthor.diary.viewModel.ViewModelFactory
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_homework.*
 import java.time.LocalDateTime
+
 
 class AddHomeworkActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
@@ -29,20 +29,25 @@ class AddHomeworkActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
 
         subject_name.adapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, subjectViewModel.getNames())
-
     }
 
     fun saveHomework(view: View) {
         val homework = extractHomeworkFromFields()
         if (homework != null) {
             if (homeworkViewModel.addHomework(homework)) {
-                Snackbar.make(view, "Homework was successfully added", Snackbar.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.homework_was_added),
+                    Toast.LENGTH_SHORT
+                ).show()
                 finish()
                 return
             }
-            Snackbar.make(view, "Homework already exists", Snackbar.LENGTH_SHORT).show()
+            Toast.makeText(this, resources.getString(R.string.homework_exists), Toast.LENGTH_SHORT)
+                .show()
         }
-        Toast.makeText(this, "Fill all necessary fields first", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, resources.getString(R.string.fill_all_fields), Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun extractHomeworkFromFields(): Homework? {
@@ -108,4 +113,5 @@ class AddHomeworkActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         }
         timeTextView.text = time
     }
+
 }

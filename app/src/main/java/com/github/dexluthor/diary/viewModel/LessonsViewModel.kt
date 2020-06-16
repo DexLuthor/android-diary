@@ -3,22 +3,81 @@ package com.github.dexluthor.diary.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
+import com.github.dexluthor.diary.R
 import com.github.dexluthor.diary.entities.Lesson
+import com.github.dexluthor.diary.entities.LessonType
+import com.github.dexluthor.diary.entities.Subject
+import java.time.DayOfWeek
+import java.time.LocalTime
 
 class LessonsViewModel : ViewModel() {
-    private val lessons = MutableLiveData<List<Lesson>>(ArrayList())
+    private val lessonsMonday = MutableLiveData<List<Lesson>>(ArrayList())
+    private val lessonsTuesday = MutableLiveData<List<Lesson>>(ArrayList())
+    private val lessonsWednesday = MutableLiveData<List<Lesson>>(ArrayList())
+    private val lessonsThursday = MutableLiveData<List<Lesson>>(ArrayList())
+    private val lessonsFriday = MutableLiveData<List<Lesson>>(ArrayList())
+
+    init {
+        /*
+             -----EXAMPLE DATA-----
+         */
+        val list = listOf(
+            Lesson(
+                LocalTime.MAX,
+                DayOfWeek.FRIDAY,
+                "",
+                3,
+                LessonType.LECTURE,
+                Subject("psin", "site", "mail")
+            ), Lesson(
+                LocalTime.MAX,
+                DayOfWeek.FRIDAY,
+                "",
+                3,
+                LessonType.LECTURE,
+                Subject("asd", "site", "mail")
+            )
+        )
+        lessonsFriday.postValue(list)
+    }
 
     fun addLesson(lesson: Lesson) {
-        val arrayList = ArrayList(lessons.value!!)
+        val vm = when (lesson.dayOfWeek) {
+            DayOfWeek.MONDAY -> lessonsMonday
+            DayOfWeek.TUESDAY -> lessonsTuesday
+            DayOfWeek.WEDNESDAY -> lessonsWednesday
+            DayOfWeek.THURSDAY -> lessonsThursday
+            else -> lessonsFriday
+        }
+        val arrayList = ArrayList(vm.value!!)
         arrayList.add(lesson)
-    //TODO postValue
-        lessons.value = arrayList
-    }
-    fun removeLesson(lesson: Lesson){
-        val arrayList = ArrayList(lessons.value!!)
-        arrayList.remove(lesson)
-        lessons.postValue(arrayList)
+        arrayList.sort()
+        vm.postValue(arrayList)
     }
 
-    fun getLessons() = lessons as LiveData<List<Lesson>>
+    @Throws(NumberFormatException::class)
+    fun removeLessonAt(
+        position: Int,
+        recyclerView: RecyclerView
+    ): Lesson {
+        val vm = when (recyclerView.id) {
+            R.id.mondayLessonsRecycler -> lessonsMonday
+            R.id.tuesdayLessonsRecycler -> lessonsTuesday
+            R.id.wednesdayLessonsRecycler -> lessonsWednesday
+            R.id.thursdayLessonsRecycler -> lessonsThursday
+            else -> lessonsFriday
+        }
+        val arrayList = ArrayList(vm.value!!)
+        val removedLesson = arrayList.removeAt(position)
+        vm.postValue(arrayList)
+        return removedLesson
+    }
+
+    fun getMondayLessons() = lessonsMonday as LiveData<List<Lesson>>
+    fun getTuesdayLessons() = lessonsTuesday as LiveData<List<Lesson>>
+    fun getWednesdayLessons() = lessonsWednesday as LiveData<List<Lesson>>
+    fun getThursdayLessons() = lessonsThursday as LiveData<List<Lesson>>
+    fun getFridayLessons() = lessonsFriday as LiveData<List<Lesson>>
+
 }

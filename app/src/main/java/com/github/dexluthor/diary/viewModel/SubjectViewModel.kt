@@ -13,11 +13,11 @@ class SubjectViewModel {
         /*
              -----EXAMPLE DATA-----
          */
-        val list = listOf<Subject>(
-            Subject("psin", "site", "mail"),
-            Subject("paz", "web", "juraj.sebej@upjs.sk"),
-            Subject("vma", "novotnyr.com", "robert.novotny@upjs.sk"),
-            Subject("swi", "", "")
+        val list = listOf(
+            Subject("paz", "https://paz1a.ics.upjs.sk/", "juraj.sebej@upjs.sk"),
+            Subject("psin", "https://siete.gursky.sk/", "peter.gursky@upjs.sk"),
+            Subject("swi", "", "alexander.szabari@upjs.sk"),
+            Subject("vma", "https://ics.upjs.sk/~novotnyr/android-2020/", "robert.novotny@upjs.sk")
         )
         subjects.postValue(list)
     }
@@ -35,17 +35,9 @@ class SubjectViewModel {
             }
         }
         arrayList.add(subject)
+        arrayList.sort()
         subjects.postValue(arrayList)
         return true
-    }
-
-    fun removeSubject(subject: Subject): Boolean {
-        val arrayList = ArrayList(subjects.value!!)
-        if (arrayList.remove(subject)) {
-            subjects.postValue(arrayList)
-            return true
-        }
-        return false
     }
 
     @Throws(IndexOutOfBoundsException::class)

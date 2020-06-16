@@ -24,12 +24,15 @@ class ChooseWhatToCreateDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         add_subject.setOnClickListener {
+            dismiss()
             startActivity(Intent(context, EditSubjectActivity::class.java))
         }
         add_homework.setOnClickListener {
+            dismiss()
             startActivity(Intent(context, AddHomeworkActivity::class.java))
         }
         add_lesson.setOnClickListener {
+            dismiss()
             startActivity(Intent(context, AddLessonActivity::class.java))
         }
     }

@@ -13,6 +13,7 @@ class HomeworkViewModel : ViewModel() {
 
         val arrayList = ArrayList(homeworkData.value!!)
         arrayList.add(homework)
+        arrayList.sort()
         homeworkData.postValue(arrayList)
         return true
     }

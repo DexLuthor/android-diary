@@ -6,7 +6,7 @@ class Subject(
     var name: String,
     var site: String,
     var email: String
-) : Serializable {
+) : Serializable, Comparable<Subject> {
 
     override fun toString(): String {
         return "Subject(name='$name')"
@@ -26,4 +26,6 @@ class Subject(
     override fun hashCode(): Int {
         return name.hashCode()
     }
+
+    override fun compareTo(other: Subject) = name.compareTo(other.name)
 }

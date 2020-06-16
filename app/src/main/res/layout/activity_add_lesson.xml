@@ -64,36 +64,15 @@
             android:layout_height="50dp"
             android:layout_marginTop="10dp" />
 
-        <LinearLayout
+        <Button
+            android:id="@+id/saveLessonButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/removeLessonButton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@color/basicDark"
-                android:onClick="removeLesson"
-                android:text="@string/remove"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                tools:ignore="ButtonStyle" />
-
-            <Button
-                android:id="@+id/saveLessonButton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:background="@color/basicDark"
-                android:onClick="saveLesson"
-                android:text="@string/save"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                tools:ignore="ButtonStyle" />
-        </LinearLayout>
+            android:layout_height="50dp"
+            android:background="@color/basicDark"
+            android:onClick="saveLesson"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
