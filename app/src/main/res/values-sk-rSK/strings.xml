@@ -43,4 +43,6 @@
     <string name="wednesday">Streda</string>
     <string name="thursday">Štvrtok</string>
     <string name="friday">Piatok</string>
+    <string name="time">Čas</string>
+    <string name="type">Typ</string>
 </resources>

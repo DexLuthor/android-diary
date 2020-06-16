@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     tools:context=".activities.LessonInfoActivity">
 
     <LinearLayout
@@ -12,37 +13,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="10dp">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/subject_name"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/basic"
+            android:hint="@string/subject_name" />
 
         <TextView
             android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp" />
+
+            android:layout_marginBottom="5dp"
+            android:background="@color/basic"
+            android:hint="@string/time" />
 
         <TextView
             android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp" />
+
+            android:layout_marginBottom="5dp"
+            android:background="@color/basic"
+            android:hint="@string/location" />
 
         <TextView
             android:id="@+id/duration"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp" />
+
+            android:layout_marginBottom="5dp"
+            android:background="@color/basic"
+            android:hint="@string/duration" />
 
         <TextView
             android:id="@+id/type"
             android:layout_width="match_parent"
+
             android:layout_height="50dp"
-            android:layout_marginTop="30dp" />
+            android:background="@color/basic"
+            android:hint="@string/type" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

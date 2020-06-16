@@ -18,15 +18,6 @@ class HomeworkViewModel : ViewModel() {
         return true
     }
 
-    fun removeHomework(homework: Homework): Boolean {
-        val arrayList = ArrayList(homeworkData.value!!)
-        if (arrayList.remove(homework)) {
-            homeworkData.postValue(arrayList)
-            return true
-        }
-        return false
-    }
-
     fun getHomework() = homeworkData as LiveData<List<Homework>>
 
     @Throws(IndexOutOfBoundsException::class)

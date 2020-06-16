@@ -5,15 +5,13 @@
     android:layout_height="match_parent"
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
-    android:paddingBottom="25dp"
     tools:context=".activities.EditSubjectActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="25dp">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/subjectName"
@@ -37,7 +35,8 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="@string/teacher_s_email" />
+                android:hint="@string/teacher_s_email"
+                android:inputType="textEmailAddress" />
         </LinearLayout>
 
         <LinearLayout

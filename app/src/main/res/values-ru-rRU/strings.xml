@@ -43,4 +43,6 @@
     <string name="email_isnt_provided">Email учителя не предоставлен</string>
     <string name="site_not_provided">Сайт не предоставлен</string>
     <string name="no_email_client_installed">Нет установленных email клиентов</string>
+    <string name="time">Время</string>
+    <string name="type">Тип</string>
 </resources>

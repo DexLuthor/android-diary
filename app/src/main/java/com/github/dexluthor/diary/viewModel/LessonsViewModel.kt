@@ -6,10 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dexluthor.diary.R
 import com.github.dexluthor.diary.entities.Lesson
-import com.github.dexluthor.diary.entities.LessonType
-import com.github.dexluthor.diary.entities.Subject
 import java.time.DayOfWeek
-import java.time.LocalTime
 
 class LessonsViewModel : ViewModel() {
     private val lessonsMonday = MutableLiveData<List<Lesson>>(ArrayList())
@@ -17,30 +14,6 @@ class LessonsViewModel : ViewModel() {
     private val lessonsWednesday = MutableLiveData<List<Lesson>>(ArrayList())
     private val lessonsThursday = MutableLiveData<List<Lesson>>(ArrayList())
     private val lessonsFriday = MutableLiveData<List<Lesson>>(ArrayList())
-
-    init {
-        /*
-             -----EXAMPLE DATA-----
-         */
-        val list = listOf(
-            Lesson(
-                LocalTime.MAX,
-                DayOfWeek.FRIDAY,
-                "",
-                3,
-                LessonType.LECTURE,
-                Subject("psin", "site", "mail")
-            ), Lesson(
-                LocalTime.MAX,
-                DayOfWeek.FRIDAY,
-                "",
-                3,
-                LessonType.LECTURE,
-                Subject("asd", "site", "mail")
-            )
-        )
-        lessonsFriday.postValue(list)
-    }
 
     fun addLesson(lesson: Lesson) {
         val vm = when (lesson.dayOfWeek) {

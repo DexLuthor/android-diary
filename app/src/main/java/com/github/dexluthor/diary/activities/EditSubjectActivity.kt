@@ -22,14 +22,12 @@ class EditSubjectActivity : AppCompatActivity() {
     private val viewModel = ViewModelFactory.getSubjectViewModel()
     private lateinit var subject: Subject
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_subject)
 
         fillFieldsIfHasExtras()
         webView.visibility = View.INVISIBLE
-
     }
 
     private fun fillFieldsIfHasExtras() {

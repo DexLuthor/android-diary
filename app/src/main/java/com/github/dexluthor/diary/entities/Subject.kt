@@ -2,15 +2,11 @@ package com.github.dexluthor.diary.entities
 
 import java.io.Serializable
 
-class Subject(
+data class Subject(
     var name: String,
     var site: String,
     var email: String
 ) : Serializable, Comparable<Subject> {
-
-    override fun toString(): String {
-        return "Subject(name='$name')"
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -18,9 +14,7 @@ class Subject(
 
         other as Subject
 
-        if (name != other.name) return false
-
-        return true
+        return name == other.name
     }
 
     override fun hashCode(): Int {

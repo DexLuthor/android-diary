@@ -3,16 +3,12 @@ package com.github.dexluthor.diary.entities
 import java.io.Serializable
 import java.time.LocalDateTime
 
-class Homework(
+data class Homework(
     var deadline: LocalDateTime,
     var description: String,
     var subject: Subject
 ) : Comparable<Homework>, Serializable {
     var status: Boolean = false
-
-    override fun toString(): String {
-        return "Homework(deadline=$deadline, subjectName='$subject')"
-    }
 
     override fun compareTo(other: Homework) =
         if (deadline > other.deadline) 1 else if (deadline < other.deadline) -1 else 0

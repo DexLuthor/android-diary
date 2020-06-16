@@ -13,12 +13,12 @@ data class Lesson(
     var subject: Subject
 ) : Comparable<Lesson>, Serializable {
 
-    override fun compareTo(l: Lesson): Int {
-        if (dayOfWeek < l.dayOfWeek)
+    override fun compareTo(other: Lesson): Int {
+        if (dayOfWeek < other.dayOfWeek)
             return -1
         else if (dayOfWeek > dayOfWeek)
             return 1
-        return if (startTime < l.startTime) -1 else if (startTime > l.startTime) 1 else 0
+        return if (startTime < other.startTime) -1 else if (startTime > other.startTime) 1 else 0
     }
 }
 

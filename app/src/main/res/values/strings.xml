@@ -55,4 +55,6 @@
     <string name="no_email_client_installed">There is no email client installed</string>
     <string name="site_not_provided">Site is not provided</string>
     <string name="undo">UNDO</string>
+    <string name="time">Time*</string>
+    <string name="type">Type</string>
 </resources>

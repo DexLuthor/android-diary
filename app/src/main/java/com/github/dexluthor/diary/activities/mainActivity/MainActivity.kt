@@ -20,7 +20,6 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
     private val mondayAdapter = MondayAdapter()
     private val tuesdayAdapter = TuesdayAdapter()
@@ -32,10 +31,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         initPagerAdapter()
-
         initLessonRecyclers()
-
         initObservers()
     }
 

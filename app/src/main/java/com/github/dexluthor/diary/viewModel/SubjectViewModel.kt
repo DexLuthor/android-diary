@@ -9,24 +9,11 @@ import kotlin.collections.ArrayList
 class SubjectViewModel {
     private val subjects = MutableLiveData<List<Subject>>(ArrayList())
 
-    init {
-        /*
-             -----EXAMPLE DATA-----
-         */
-        val list = listOf(
-            Subject("paz", "https://paz1a.ics.upjs.sk/", "juraj.sebej@upjs.sk"),
-            Subject("psin", "https://siete.gursky.sk/", "peter.gursky@upjs.sk"),
-            Subject("swi", "", "alexander.szabari@upjs.sk"),
-            Subject("vma", "https://ics.upjs.sk/~novotnyr/android-2020/", "robert.novotny@upjs.sk")
-        )
-        subjects.postValue(list)
-    }
-
     fun addSubject(subject: Subject): Boolean {
         val arrayList = ArrayList(subjects.value!!)
         for (i in 0 until arrayList.size) {
             if (arrayList[i] == subject) {
-                if (arrayList[i].email == subject.email && arrayList[i].site == arrayList[i].site) {
+                if (arrayList[i].email == subject.email && arrayList[i].site == subject.site) {
                     return false
                 }
                 arrayList[i].site = subject.site
