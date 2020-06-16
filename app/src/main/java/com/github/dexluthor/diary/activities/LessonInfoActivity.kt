@@ -14,7 +14,7 @@ class LessonInfoActivity : AppCompatActivity() {
 
         val lesson = intent.extras?.getSerializable("lesson") as Lesson
         subject_name.text = lesson.subject.name
-        time.text = lesson.startTime.toString().substring(0, 8)
+        time.text = lesson.startTime.toString().substring(0, 5)
         location.text = lesson.location
         duration.text = lesson.durationMinutes.toString()
         type.text = lesson.type.toString()

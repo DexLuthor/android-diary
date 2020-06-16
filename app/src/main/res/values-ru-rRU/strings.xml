@@ -44,4 +44,6 @@
     <string name="no_email_client_installed">Нет установленных email клиентов</string>
     <string name="time">Время</string>
     <string name="type">Тип</string>
+    <string name="lecture">Лекция</string>
+    <string name="practice">Практика</string>
 </resources>

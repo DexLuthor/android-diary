@@ -44,4 +44,6 @@
     <string name="friday">Piatok</string>
     <string name="time">Čas</string>
     <string name="type">Typ</string>
+    <string name="lecture">Prednáška</string>
+    <string name="practice">Cvičenie</string>
 </resources>

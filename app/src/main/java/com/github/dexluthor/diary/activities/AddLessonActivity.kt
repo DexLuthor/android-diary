@@ -16,7 +16,6 @@ import com.github.dexluthor.diary.viewModel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_add_lesson.*
 import java.time.DayOfWeek
 import java.time.LocalTime
-import java.util.*
 
 class AddLessonActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener {
 
@@ -31,9 +30,11 @@ class AddLessonActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListene
             R.array.days,
             android.R.layout.simple_spinner_dropdown_item
         )
-        type.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, LessonType.values())
-
+        type.adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.types,
+            android.R.layout.simple_spinner_dropdown_item
+        )
         subject_name.adapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, subjectViewModel.getNames())
     }
@@ -66,14 +67,25 @@ class AddLessonActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListene
     private fun extractLessonFromFields(): Lesson? {
         if (!isValidState()) return null
 
-        val type = if (type.selectedItem == "LECTURE") LessonType.LECTURE//TODO eng??
-        else LessonType.PRACTICE
+        val type =
+            if (type.selectedItem == "LECTURE" || type.selectedItem == "Лекция" || type.selectedItem == "Prednáška") LessonType.LECTURE
+            else LessonType.PRACTICE
+
+        val dayOfWeek = when (day_of_week.selectedItem) {
+            "Понедельник" -> DayOfWeek.MONDAY
+            "Pondelok" -> DayOfWeek.MONDAY
+            "Вторник" -> DayOfWeek.TUESDAY
+            "Utorok" -> DayOfWeek.TUESDAY
+            "Среда" -> DayOfWeek.WEDNESDAY
+            "Streda" -> DayOfWeek.WEDNESDAY
+            "Четверг" -> DayOfWeek.THURSDAY
+            "Štvrtok" -> DayOfWeek.THURSDAY
+            else -> DayOfWeek.FRIDAY
+        }
 
         return Lesson(
             LocalTime.parse(time.text),
-            DayOfWeek.valueOf(
-                day_of_week.selectedItem.toString().toUpperCase(Locale.ROOT)
-            ),
+            dayOfWeek,
             location.text.toString(),
             Integer.parseInt(duration.text.toString()),
             type,
