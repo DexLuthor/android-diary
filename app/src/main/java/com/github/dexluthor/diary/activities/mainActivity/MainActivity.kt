@@ -86,9 +86,9 @@ class MainActivity : AppCompatActivity() {
                     lessonsViewModel.removeLessonAt(holder.adapterPosition, recyclerView)
                 Snackbar.make(
                     recyclerView,
-                    "Lesson was successfully removed",
+                    resources.getString(R.string.lesson_was_removed),
                     Snackbar.LENGTH_LONG
-                ).setAction("UNDO") {
+                ).setAction(resources.getString(R.string.undo)) {
                     lessonsViewModel.addLesson(removedLesson)
                 }.show()
             }
