@@ -3,12 +3,15 @@ package com.github.dexluthor.diary.activities.mainActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dexluthor.diary.R
 import com.github.dexluthor.diary.activities.mainActivity.lessonsRecyclerView.*
+import com.github.dexluthor.diary.entities.Lesson
 import com.github.dexluthor.diary.fragment.ChooseWhatToCreateDialogFragment
 import com.github.dexluthor.diary.viewModel.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -46,31 +49,56 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initLessonRecyclers() {
-        mondayLessonsRecycler.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        mondayLessonsRecycler.adapter = mondayAdapter
+        val recyclers = listOf(
+            mondayLessonsRecycler,
+            tuesdayLessonsRecycler,
+            wednesdayLessonsRecycler,
+            thursdayLessonsRecycler,
+            fridayLessonsRecycler
+        )
+        val adapters =
+            listOf(mondayAdapter, tuesdayAdapter, wednesdayAdapter, thursdayAdapter, fridayAdapter)
 
-        tuesdayLessonsRecycler.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        tuesdayLessonsRecycler.adapter = tuesdayAdapter
+        for (i in recyclers.indices) {
+            initRecycler(recyclers[i], adapters[i])
+        }
 
-        wednesdayLessonsRecycler.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        wednesdayLessonsRecycler.adapter = wednesdayAdapter
+//        mondayLessonsRecycler.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        mondayLessonsRecycler.adapter = mondayAdapter
+//
+//        tuesdayLessonsRecycler.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        tuesdayLessonsRecycler.adapter = tuesdayAdapter
+//
+//        wednesdayLessonsRecycler.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        wednesdayLessonsRecycler.adapter = wednesdayAdapter
+//
+//        thursdayLessonsRecycler.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        thursdayLessonsRecycler.adapter = thursdayAdapter
+//
+//        fridayLessonsRecycler.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        fridayLessonsRecycler.adapter = fridayAdapter
+//
+//        setSwipeCallback(mondayLessonsRecycler)
+//        setSwipeCallback(tuesdayLessonsRecycler)
+//        setSwipeCallback(wednesdayLessonsRecycler)
+//        setSwipeCallback(thursdayLessonsRecycler)
+//        setSwipeCallback(fridayLessonsRecycler)
+    }
 
-        thursdayLessonsRecycler.layoutManager =
+    //TODO check
+    private fun initRecycler(
+        recyclerView: RecyclerView,
+        adapter: ListAdapter<Lesson, LessonViewHolder>
+    ) {
+        recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        thursdayLessonsRecycler.adapter = thursdayAdapter
-
-        fridayLessonsRecycler.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        fridayLessonsRecycler.adapter = fridayAdapter
-
-        setSwipeCallback(mondayLessonsRecycler)
-        setSwipeCallback(tuesdayLessonsRecycler)
-        setSwipeCallback(wednesdayLessonsRecycler)
-        setSwipeCallback(thursdayLessonsRecycler)
-        setSwipeCallback(fridayLessonsRecycler)
+        recyclerView.adapter = adapter
+        setSwipeCallback(recyclerView)
     }
 
     private fun setSwipeCallback(recyclerView: RecyclerView) {
@@ -97,21 +125,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        val lessonViewModel = lessonsViewModel
-        lessonViewModel.getMondayLessons().observe(this, Observer { lessons ->
-            mondayAdapter.submitList(lessons)
-        })
-        lessonViewModel.getTuesdayLessons().observe(this, Observer { lessons ->
-            tuesdayAdapter.submitList(lessons)
-        })
-        lessonViewModel.getWednesdayLessons().observe(this, Observer { lessons ->
-            wednesdayAdapter.submitList(lessons)
-        })
-        lessonViewModel.getThursdayLessons().observe(this, Observer { lessons ->
-            thursdayAdapter.submitList(lessons)
-        })
-        lessonViewModel.getFridayLessons().observe(this, Observer { lessons ->
-            fridayAdapter.submitList(lessons)
+        //val lessonViewModel = lessonsViewModel
+        val vms = listOf(
+            lessonsViewModel.getMondayLessons(),
+            lessonsViewModel.getTuesdayLessons(),
+            lessonsViewModel.getWednesdayLessons(),
+            lessonsViewModel.getThursdayLessons(),
+            lessonsViewModel.getFridayLessons()
+        )
+        val adapters =
+            listOf(mondayAdapter, tuesdayAdapter, wednesdayAdapter, thursdayAdapter, fridayAdapter)
+
+        for (i in vms.indices) {
+            initObserver(vms[i], adapters[i])
+        }
+
+//        lessonsViewModel.getMondayLessons().observe(this, Observer { lessons ->
+//            mondayAdapter.submitList(lessons)
+//        })
+//        lessonsViewModel.getTuesdayLessons().observe(this, Observer { lessons ->
+//            tuesdayAdapter.submitList(lessons)
+//        })
+//        lessonViewModel.getWednesdayLessons().observe(this, Observer { lessons ->
+//            wednesdayAdapter.submitList(lessons)
+//        })
+//        lessonViewModel.getThursdayLessons().observe(this, Observer { lessons ->
+//            thursdayAdapter.submitList(lessons)
+//        })
+//        lessonViewModel.getFridayLessons().observe(this, Observer { lessons ->
+//            fridayAdapter.submitList(lessons)
+//        })
+    }
+
+    //TODO check
+    private fun initObserver(
+        liveData: LiveData<List<Lesson>>,
+        adapter: ListAdapter<Lesson, LessonViewHolder>
+    ) {
+        liveData.observe(this, Observer { lessons ->
+            adapter.submitList(lessons)
         })
     }
 

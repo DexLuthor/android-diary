@@ -17,7 +17,6 @@ import com.github.dexluthor.diary.viewModel.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class SubjectsFragment(ct: Context) : Fragment() {
-
     private val subjectAdapter = SubjectAdapter(ct)
     private val subjectViewModel = ViewModelFactory.getSubjectViewModel()
 
